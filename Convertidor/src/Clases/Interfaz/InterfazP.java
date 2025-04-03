@@ -14,7 +14,7 @@ public class InterfazP extends JFrame {
     private JScrollPane scrollPaneInstrucciones;
 
     public InterfazP() {
-        setTitle("Interfaz con Botones");
+        setTitle("Convertidor");
         setSize(500, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
