@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class InterfazP extends JFrame {
     
-    private static final String FONDO_IMAGEN_PATH = "Convertidor\\Convertidor\\src\\Resources\\Fondo.jfif";
+    private static final String FONDO_IMAGEN_PATH = "Convertidor\\src\\Resources\\Fondo.jfif";
     private JButton boton1, boton2, boton3, botonMenu;
     private JPanel panelBotones, panelBotonesInstrucciones;
     private JScrollPane scrollPaneInstrucciones;
