@@ -1,4 +1,4 @@
-package Convertidor;
+package Clases.Convertidor;
 
 public class Decimal {
     
@@ -105,4 +105,15 @@ public class Decimal {
     // Ejemplo: temp= alian;    -->    temp= lian; 
     // Esto hace el substring(1) para quitar la primera letra
 
+    public static boolean esBinario(String valor) {
+        return valor.matches("^[01]+$");
+    }
+
+    public static boolean esDecimal(String valor) {
+        return valor.matches("^\\d+$");
+    }
+
+    public static boolean esHexadecimal(String valor) {
+        return valor.matches("^[0-9A-Fa-f]+$");
+    }
 }

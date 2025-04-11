@@ -1,4 +1,4 @@
-package Convertidor;
+package Clases.Convertidor;
 
 public class Binario {
     
@@ -97,6 +97,17 @@ public class Binario {
         return binary.toString().substring(startIndex);     // Aqui retorno el toString del StringBuilder restandole los ceros innecesarios que conte anteriormente
     }
 
+    public static boolean esBinario(String valor) {
+        return valor.matches("^[01]+$");
+    }
+
+    public static boolean esDecimal(String valor) {
+        return valor.matches("^\\d+$");
+    }
+
+    public static boolean esHexadecimal(String valor) {
+        return valor.matches("^[0-9A-Fa-f]+$");
+    }
 
 
 

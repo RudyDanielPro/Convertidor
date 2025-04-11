@@ -8,7 +8,9 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.math.BigInteger;
+import Clases.Convertidor.Binario;
+import Clases.Convertidor.Decimal;
+import Clases.Convertidor.Hexadecimal;
 
 public class FuncionalidadCON implements ActionListener {
 
@@ -28,15 +30,15 @@ public class FuncionalidadCON implements ActionListener {
         panelBotones.setVisible(false);
 
         decimalField = new JTextField("Número Decimal");
-        decimalField.setPreferredSize(new Dimension(300, 30));
+        decimalField.setPreferredSize(new Dimension(200, 30));
         decimalField.setForeground(Color.DARK_GRAY);
 
         binarioField = new JTextField("Número Binario");
-        binarioField.setPreferredSize(new Dimension(300, 30));
+        binarioField.setPreferredSize(new Dimension(200, 30));
         binarioField.setForeground(Color.DARK_GRAY);
 
         hexadecimalField = new JTextField("Número Hexadecimal");
-        hexadecimalField.setPreferredSize(new Dimension(300, 30));
+        hexadecimalField.setPreferredSize(new Dimension(200, 30));
         hexadecimalField.setForeground(Color.DARK_GRAY);
 
         agregarFocusListener(decimalField, "Número Decimal");
@@ -172,26 +174,28 @@ public class FuncionalidadCON implements ActionListener {
 
         try {
             if (inputField == decimalField) {
-                if (Convirtiendo.esDecimal(input)) {
-                    long decimalValue = Long.parseLong(input);
-                    outputField1.setText(Long.toBinaryString(decimalValue));
-                    outputField2.setText(Long.toHexString(decimalValue).toUpperCase());
+                if (Decimal.esDecimal(input)) {
+                    Decimal decimalConverter = new Decimal();
+                    outputField1.setText(new Binario().decimalConvertBinary(Integer.parseInt(input)));
+                    outputField2.setText(new Hexadecimal().decimalConvertHexa(Integer.parseInt(input)).toUpperCase());
                 } else {
                     mostrarError(inputField, outputField1, outputField2);
                 }
             } else if (inputField == binarioField) {
-                if (Convirtiendo.esBinario(input)) {
-                    BigInteger binaryValue = new BigInteger(input, 2);
-                    outputField1.setText(binaryValue.toString(10));
-                    outputField2.setText(binaryValue.toString(16).toUpperCase());
+                if (Binario.esBinario(input)) {
+                    Decimal decimalConverter = new Decimal();
+                    outputField1.setText(String.valueOf(decimalConverter.binaryConvertDecimal(Long.parseLong(input))));
+                    Hexadecimal hexadecimalConverter = new Hexadecimal();
+                    outputField2.setText(hexadecimalConverter.binaryConvertHexa(input).toUpperCase());
                 } else {
                     mostrarError(inputField, outputField1, outputField2);
                 }
             } else if (inputField == hexadecimalField) {
-                if (Convirtiendo.esHexadecimal(input)) {
-                    BigInteger hexValue = new BigInteger(input, 16);
-                    outputField1.setText(hexValue.toString(10));
-                    outputField2.setText(hexValue.toString(2));
+                if (Hexadecimal.esHexadecimal(input)) {
+                    Decimal decimalConverter = new Decimal();
+                    outputField1.setText(String.valueOf(decimalConverter.hexaConvertDecimal(input)));
+                    Binario binarioConverter = new Binario();
+                    outputField2.setText(binarioConverter.hexaConvertBinary(input));
                 } else {
                     mostrarError(inputField, outputField1, outputField2);
                 }

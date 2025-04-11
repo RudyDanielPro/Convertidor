@@ -1,4 +1,4 @@
-package Convertidor;
+package Clases.Convertidor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -110,4 +110,15 @@ public class Hexadecimal {
         return hexadecimal.toString().substring(startIndex);       // Retornar el toString de hexadecimal, restandole los ceros insignificantes a la izquierda
     }
 
+    public static boolean esBinario(String valor) {
+        return valor.matches("^[01]+$");
+    }
+
+    public static boolean esDecimal(String valor) {
+        return valor.matches("^\\d+$");
+    }
+
+    public static boolean esHexadecimal(String valor) {
+        return valor.matches("^[0-9A-Fa-f]+$");
+    }
 }
