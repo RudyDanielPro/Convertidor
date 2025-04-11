@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class InterfazP extends JFrame {
     
-    private static final String FONDO_IMAGEN_PATH = "Convertidor\\src\\Resources\\Fondo.jfif";
+    private static final String FONDO_IMAGEN_PATH = "Convertidor\\Convertidor\\src\\Resources\\Fondo.jfif";
     private JButton boton1, boton2, boton3, botonMenu;
     private JPanel panelBotones, panelBotonesInstrucciones;
     private JScrollPane scrollPaneInstrucciones;
@@ -48,7 +48,7 @@ public class InterfazP extends JFrame {
         boton3.addActionListener(new FuncionalidadSalir());
 
         // Crear área de texto para instrucciones
-        JTextArea instruccionesArea = new JTextArea("Aquí van las instrucciones...");
+        JTextArea instruccionesArea = new JTextArea("La aplicacion esta diseñada en java 22. \nCada boton cuenta con diferentes funcionalidades. \nEn la interfaz de convertir solo admiten numero Decimales,Binarios \ny Hexadecimales, cada area de texto se autocompleta. \nNinguno de los campos de conversion admiten \ncaracteres especiales ni numeros que no cumplan con lo \nespecificado\n\n\nCualquier duda o sugerencia contactar con:\nrudydanielcarballo@gmail.com , o escribir al +53 56498546\nmendez10dev@gmail.com , o escribir al +53 58030795");
         instruccionesArea.setEditable(false);
         Font fuenteInstrucciones = new Font("Arial", Font.PLAIN, 16); // Fuente Arial, tamaño 16
         instruccionesArea.setFont(fuenteInstrucciones);

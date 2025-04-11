@@ -6,6 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.math.BigInteger;
 
 public class FuncionalidadCON implements ActionListener {
 
@@ -22,94 +25,32 @@ public class FuncionalidadCON implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        panelBotones.setVisible(false); // Ocultar botones principales
+        panelBotones.setVisible(false);
 
-        // Crear cuadros de texto con tamaños preferidos
         decimalField = new JTextField("Número Decimal");
-        decimalField.setPreferredSize(new Dimension(200, 30)); // Ancho: 200, Alto: 30
-        decimalField.setForeground(Color.DARK_GRAY); // Color de fuente gris oscuro para simular sombra
+        decimalField.setPreferredSize(new Dimension(300, 30));
+        decimalField.setForeground(Color.DARK_GRAY);
 
         binarioField = new JTextField("Número Binario");
-        binarioField.setPreferredSize(new Dimension(200, 30));
+        binarioField.setPreferredSize(new Dimension(300, 30));
         binarioField.setForeground(Color.DARK_GRAY);
 
         hexadecimalField = new JTextField("Número Hexadecimal");
-        hexadecimalField.setPreferredSize(new Dimension(200, 30));
+        hexadecimalField.setPreferredSize(new Dimension(300, 30));
         hexadecimalField.setForeground(Color.DARK_GRAY);
 
-        // Agregar FocusListener para manejar el efecto de sombra
-        decimalField.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (decimalField.getText().equals("Número Decimal")) {
-                    decimalField.setText("");
-                    decimalField.setForeground(Color.BLACK);
-                    binarioField.setForeground(Color.BLACK);
-                    hexadecimalField.setForeground(Color.BLACK);
-                    binarioField.setText("");
-                    hexadecimalField.setText("");
-                }
-            }
+        agregarFocusListener(decimalField, "Número Decimal");
+        agregarFocusListener(binarioField, "Número Binario");
+        agregarFocusListener(hexadecimalField, "Número Hexadecimal");
 
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (decimalField.getText().isEmpty()) {
-                    decimalField.setText("Número Decimal");
-                    decimalField.setForeground(Color.DARK_GRAY);
-                }
-            }
-        });
+        agregarKeyListener(decimalField, binarioField, hexadecimalField);
+        agregarKeyListener(binarioField, decimalField, hexadecimalField);
+        agregarKeyListener(hexadecimalField, decimalField, binarioField);
 
-        binarioField.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (binarioField.getText().equals("Número Binario")) {
-                    binarioField.setText("");
-                    binarioField.setForeground(Color.BLACK);
-                    decimalField.setForeground(Color.BLACK);
-                    hexadecimalField.setForeground(Color.BLACK);
-                    decimalField.setText("");
-                    hexadecimalField.setText("");
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (binarioField.getText().isEmpty()) {
-                    binarioField.setText("Número Binario");
-                    binarioField.setForeground(Color.DARK_GRAY);
-                }
-            }
-        });
-
-        hexadecimalField.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (hexadecimalField.getText().equals("Número Hexadecimal")) {
-                    hexadecimalField.setText("");
-                    hexadecimalField.setForeground(Color.BLACK);
-                    decimalField.setForeground(Color.BLACK);
-                    binarioField.setForeground(Color.BLACK);
-                    decimalField.setText("");
-                    binarioField.setText("");
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (hexadecimalField.getText().isEmpty()) {
-                    hexadecimalField.setText("Número Hexadecimal");
-                    hexadecimalField.setForeground(Color.DARK_GRAY);
-                }
-            }
-        });
-
-        // Crear botón Menu
         JButton menuButton = new JButton("Menu");
         menuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Volver a mostrar botones principales y ocultar cuadros de texto
                 panelBotones.setVisible(true);
                 decimalField.setVisible(false);
                 binarioField.setVisible(false);
@@ -118,35 +59,151 @@ public class FuncionalidadCON implements ActionListener {
             }
         });
 
-        // Crear panel para organizar los cuadros de texto y el botón verticalmente
         JPanel textFieldsPanel = new JPanel();
-        textFieldsPanel.setLayout(new BoxLayout(textFieldsPanel, BoxLayout.Y_AXIS)); // Organización vertical
+        textFieldsPanel.setLayout(new BoxLayout(textFieldsPanel, BoxLayout.Y_AXIS));
         textFieldsPanel.add(decimalField);
-        textFieldsPanel.add(Box.createVerticalStrut(10)); // Espacio vertical entre los cuadros de texto
+        textFieldsPanel.add(Box.createVerticalStrut(10));
         textFieldsPanel.add(binarioField);
         textFieldsPanel.add(Box.createVerticalStrut(10));
         textFieldsPanel.add(hexadecimalField);
 
-        // Crear panel para centrar el botón Menu
         JPanel menuPanel = new JPanel();
-        menuPanel.setLayout(new FlowLayout(FlowLayout.CENTER)); // Centrar el botón
+        menuPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
         menuPanel.add(menuButton);
-        menuPanel.setOpaque(false); // Hacer el panel transparente
+        menuPanel.setOpaque(false);
 
-        textFieldsPanel.add(Box.createVerticalStrut(10)); // Espacio vertical antes del botón
-        textFieldsPanel.add(menuPanel); // Agregar el panel del botón
+        textFieldsPanel.add(Box.createVerticalStrut(10));
+        textFieldsPanel.add(menuPanel);
 
-        // Hacer el panel transparente
         textFieldsPanel.setOpaque(false);
 
-        // Agregar panel al frame
         frame.getContentPane().add(textFieldsPanel);
 
-        // Mostrar panel
         textFieldsPanel.setVisible(true);
 
-        // Actualizar frame
         frame.getContentPane().revalidate();
         frame.getContentPane().repaint();
+    }
+
+    private void agregarFocusListener(JTextField textField, String textoPorDefecto) {
+        textField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textField.getText().equals(textoPorDefecto)) {
+                    textField.setText("");
+                    textField.setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (textField.getText().isEmpty()) {
+                    textField.setText(textoPorDefecto);
+                    textField.setForeground(Color.DARK_GRAY);
+                } else {
+                    if (decimalField.getText().isEmpty()) {
+                        decimalField.setText("Número Decimal");
+                        decimalField.setForeground(Color.DARK_GRAY);
+                    }
+                    if (binarioField.getText().isEmpty()) {
+                        binarioField.setText("Número Binario");
+                        binarioField.setForeground(Color.DARK_GRAY);
+                    }
+                    if (hexadecimalField.getText().isEmpty()) {
+                        hexadecimalField.setText("Número Hexadecimal");
+                        hexadecimalField.setForeground(Color.DARK_GRAY);
+                    }
+                }
+            }
+        });
+    }
+
+    private void agregarKeyListener(JTextField inputField, JTextField outputField1, JTextField outputField2) {
+        inputField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                inputField.setBorder(UIManager.getLookAndFeelDefaults().getBorder("TextField.border"));
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                inputField.setBorder(UIManager.getLookAndFeelDefaults().getBorder("TextField.border"));
+                if (inputField == decimalField) {
+                    binarioField.setText("");
+                    hexadecimalField.setText("");
+                } else if (inputField == binarioField) {
+                    decimalField.setText("");
+                    hexadecimalField.setText("");
+                } else if (inputField == hexadecimalField) {
+                    decimalField.setText("");
+                    binarioField.setText("");
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                convertirNumero(inputField, outputField1, outputField2);
+
+                if (inputField.getText().isEmpty()) {
+                    if (inputField != decimalField && decimalField.getText().isEmpty()) {
+                        decimalField.setText("Número Decimal");
+                        decimalField.setForeground(Color.DARK_GRAY);
+                    }
+                    if (inputField != binarioField && binarioField.getText().isEmpty()) {
+                        binarioField.setText("Número Binario");
+                        binarioField.setForeground(Color.DARK_GRAY);
+                    }
+                    if (inputField != hexadecimalField && hexadecimalField.getText().isEmpty()) {
+                        hexadecimalField.setText("Número Hexadecimal");
+                        hexadecimalField.setForeground(Color.DARK_GRAY);
+                    }
+                }
+            }
+        });
+    }
+
+    private void convertirNumero(JTextField inputField, JTextField outputField1, JTextField outputField2) {
+        String input = inputField.getText();
+        inputField.setBorder(UIManager.getLookAndFeelDefaults().getBorder("TextField.border"));
+
+        if (input.isEmpty()) {
+            return;
+        }
+
+        try {
+            if (inputField == decimalField) {
+                if (Convirtiendo.esDecimal(input)) {
+                    long decimalValue = Long.parseLong(input);
+                    outputField1.setText(Long.toBinaryString(decimalValue));
+                    outputField2.setText(Long.toHexString(decimalValue).toUpperCase());
+                } else {
+                    mostrarError(inputField, outputField1, outputField2);
+                }
+            } else if (inputField == binarioField) {
+                if (Convirtiendo.esBinario(input)) {
+                    BigInteger binaryValue = new BigInteger(input, 2);
+                    outputField1.setText(binaryValue.toString(10));
+                    outputField2.setText(binaryValue.toString(16).toUpperCase());
+                } else {
+                    mostrarError(inputField, outputField1, outputField2);
+                }
+            } else if (inputField == hexadecimalField) {
+                if (Convirtiendo.esHexadecimal(input)) {
+                    BigInteger hexValue = new BigInteger(input, 16);
+                    outputField1.setText(hexValue.toString(10));
+                    outputField2.setText(hexValue.toString(2));
+                } else {
+                    mostrarError(inputField, outputField1, outputField2);
+                }
+            }
+        } catch (NumberFormatException ex) {
+            mostrarError(inputField, outputField1, outputField2);
+        }
+    }
+
+    private void mostrarError(JTextField inputField, JTextField outputField1, JTextField outputField2) {
+        inputField.setBorder(BorderFactory.createLineBorder(Color.RED));
+        outputField1.setText("Número no válido");
+        outputField2.setText("Número no válido");
     }
 }
